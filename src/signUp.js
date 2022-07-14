@@ -3,10 +3,10 @@ import { Outlet, Link } from "react-router-dom";
 import { DataContext } from "./DataProvider";
 
 const SignUp = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [inputValue2, setInputValue2] = useState("");
-  const [inputValue3, setInputValue3] = useState("");
-  const [inputValue4, setInputValue4] = useState("");
+  const [inputValue, setInputValue] = useState();
+  const [inputValue2, setInputValue2] = useState();
+  const [inputValue3, setInputValue3] = useState();
+  const [inputValue4, setInputValue4] = useState();
   const [userList, setUserList] = useContext(DataContext);
   
   const addUser = (e) => {
@@ -19,22 +19,13 @@ const SignUp = () => {
         Password: inputValue2,
       },
     ]);
+    setInputValue('');
+    setInputValue3('');
+    setInputValue4('');
+    setInputValue2('');
   };
 
   console.log(userList);
-  // const userList = [];
-
-  // function click () {
-  //     userList.push(
-  //         {
-  //             UserName: inputValue,
-  //             Email: inputValue3,
-  //             Phone: inputValue4,
-  //             Password: inputValue2
-  //         }
-  //     )
-  //     console.log(userList);
-  // }
 
   return (
     <div className="sign">

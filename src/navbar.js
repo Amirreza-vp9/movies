@@ -14,7 +14,7 @@ import Modal from './modal';
                 className='movie-img'/>
                 <div className='nav-text' 
                     onClick={() => {setIsOpen(true)}}>Menu</div>
-                <NavLink to={'/home'} className='nav-text'>Home</NavLink>
+                <NavLink to={'/'} className='nav-text'>Home</NavLink>
                 <div className='search'>
                 <input value={search} className='input-search'
                 placeholder='Search'

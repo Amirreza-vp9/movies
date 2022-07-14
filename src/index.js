@@ -10,6 +10,7 @@ import Drama from './Drama';
 import Home from './home';
 import Animation from './Animation';
 import Profile from './profile';
+import Action from './action';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 import {DataProvider} from './DataProvider';
@@ -22,7 +23,8 @@ root.render(
   <Routes>
     <Route path='/' element={<App/>}>
       <Route path='Scifi' element={<Scifi/>} />
-      <Route path='home' element={<Home/>} />
+      <Route path='action' element={<Action/>} />
+      <Route path='/' element={<Home/>} />
       <Route path='/profile/:id' element={<Profile/>}/>
       <Route path='Drama' element={<Drama/>} />
       <Route path='Animation' element={<Animation/>} />

@@ -17,6 +17,10 @@ export default function Category({open, onClose}) {
             >Sci-fi</Link>
             <br/>
             <br/>
+            <Link className='C-link' to={'/action'}
+                onClick={onClose}>Action</Link>
+            <br/>
+            <br/>
             <Link className='C-link' to={'/Drama'}
                 onClick={onClose}
             >Drama</Link>
