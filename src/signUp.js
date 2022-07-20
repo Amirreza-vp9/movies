@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Outlet, Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { DataContext } from "./DataProvider";
 
 const SignUp = () => {
@@ -7,24 +7,35 @@ const SignUp = () => {
   const [inputValue2, setInputValue2] = useState();
   const [inputValue3, setInputValue3] = useState();
   const [inputValue4, setInputValue4] = useState();
-  const [userList, setUserList] = useContext(DataContext);
-  
+  const { db, setDb } = useContext(DataContext);
+  const { userList, setUserList } = useContext(DataContext);
+  const navigate = useNavigate();
+
+  const UID = () =>
+    `${new Date().getTime()}${String(Math.random()).slice(3, 9)}`;
+
   const addUser = (e) => {
     e.preventDefault();
-    setUserList([...userList,
-      {
-        UserName: inputValue,
-        Email: inputValue3,
-        Phone: inputValue4,
-        Password: inputValue2,
-      },
-    ]);
-    setInputValue('');
-    setInputValue3('');
-    setInputValue4('');
-    setInputValue2('');
+    const clone = [...userList];
+    clone.push({
+      UserName: inputValue,
+      Email: inputValue3,
+      Phone: inputValue4,
+      Password: inputValue2,
+      col: false,
+      id: UID(),
+      WatchList: [],
+    });
+    setUserList(clone);
+    setInputValue("");
+    setInputValue3("");
+    setInputValue4("");
+    setInputValue2("");
+    // userList.filter(item => {
+    //   if(item.UserName ===)
+    // })
+    navigate("/signIn");
   };
-
   console.log(userList);
 
   return (
