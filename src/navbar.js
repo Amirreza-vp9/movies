@@ -7,15 +7,14 @@ const Navbar = () => {
   const [search, setSearch] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const { db, setDb } = useContext(DataContext);
-  const { userList, setUserList } = useContext(DataContext);
 
-  function searching() {
-    userList.map((item) => {
-      if (search === item.name) {
-        console.log(true);
-      }
-    });
-  }
+  // function searching() {
+  //   userList.map((item) => {
+  //     if (search === item.name) {
+  //       console.log(true);
+  //     }
+  //   });
+  // }
 
   return (
     <>
@@ -27,20 +26,15 @@ const Navbar = () => {
             width="80px"
             className="movie-img"
           />
-          {userList.map((item) => {
-            if (item.col === true) {
-              return (
-                <div
-                  className="nav-text"
-                  onClick={() => {
-                    setIsOpen(true);
-                  }}
-                >
-                  Menu
-                </div>
-              );
-            }
-          })}
+          <div
+            className="nav-text"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            {db.db.currentUser ? "Menu" : ""}
+          </div>
+
           <NavLink to={"/"} className="nav-text">
             Home
           </NavLink>
@@ -52,15 +46,9 @@ const Navbar = () => {
               onChange={(e) => setSearch(e.target.value)}
             ></input>
           </div>
-          {userList.map((item) => {
-            if (item.col === true) {
-              return (
-                <NavLink to={"/watchList"} className="nav-text">
-                  WatchList
-                </NavLink>
-              );
-            }
-          })}
+          <NavLink to={"/watchList"} className="nav-text">
+            {db.db.currentUser ? "WatchList" : ""}
+          </NavLink>
           <NavLink to={"/signIn"} className="nav-text">
             Sign In
           </NavLink>

@@ -22,6 +22,13 @@ const Profile = () => {
     setMessage(commentValue);
     setCommentValue("");
     setIsOpen2(false);
+    return (
+      <div className={spoiling === true ? "spoil-comment" : "comment"}>
+        {db.db.currentUser.UserName} :
+        <br />
+        {message}
+      </div>
+    );
   }
 
   function spoil() {
@@ -136,7 +143,7 @@ const Profile = () => {
       </div>
       <Comment open2={isOpen2}>
         <div className="u-c-modal-cmt">
-          <div className="modal-un">User name</div>
+          <div className="modal-un">{db.db.currentUser.UserName}</div>
           <img
             className="close-icon"
             onClick={onClose2}
@@ -159,13 +166,15 @@ const Profile = () => {
         </button>
       </Comment>
       <div className="comments">
-        {send ? (
+        {/* {send ? (
           <div className={spoiling === true ? "spoil-comment" : "comment"}>
+            {db.db.currentUser.UserName} :
+            <br />
             {message}
           </div>
         ) : (
           ""
-        )}
+        )} */}
       </div>
       <Rate open={isOpen} onClose={() => setIsOpen(false)}></Rate>
     </div>

@@ -3,9 +3,10 @@ import React, { useState, createContext, useEffect } from "react";
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-  const [userList, setUserList] = useState([]);
+  // const [userList, setUserList] = useState([]);
   const [db, setDb] = useState({
     db: {
+      currentUser: null,
       movies: [
         {
           id: 1,
@@ -3395,9 +3396,8 @@ export const DataProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (userList.lenght !== 0)
-      return localStorage.setItem("users", JSON.stringify(userList));
-  }, [userList]);
+    if (db) return localStorage.setItem("database", JSON.stringify(db));
+  }, [db]);
 
   // useEffect(() => {
   //   // const localData = localStorage.getItem("users");
@@ -3409,7 +3409,7 @@ export const DataProvider = ({ children }) => {
   // });
 
   return (
-    <DataContext.Provider value={{ db, setDb, userList, setUserList }}>
+    <DataContext.Provider value={{ db: db, setDb: setDb }}>
       {children}
     </DataContext.Provider>
   );

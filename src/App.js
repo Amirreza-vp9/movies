@@ -12,13 +12,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DataContext } from "./DataProvider";
 
 export default function App() {
-  const { userList, setUserList } = useContext(DataContext);
+  const { db, setDb } = useContext(DataContext);
 
   useEffect(() => {
-    // const localData = localStorage.getItem("users");
-    // return localData ? JSON.parse(localData) : [];
-    const items = JSON.parse(localStorage.getItem("users"));
-    setUserList(items);
+    const items = JSON.parse(localStorage.getItem("database"));
+    setDb(items);
   }, []);
 
   return (
