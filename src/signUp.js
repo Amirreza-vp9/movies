@@ -30,6 +30,8 @@ const SignUp = () => {
         Phone: inputValue4,
         Password: inputValue2,
         col: false,
+        admin: false,
+        comments: [],
         id: UID(),
         WatchList: [],
       });

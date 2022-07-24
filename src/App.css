@@ -1,19 +1,6 @@
-.App {
-  margin: 0;
-  padding: 0 0 300px 0;
-  background-color: #0e0e0e;
-}
 .movie-img{
-  margin-left: 200px;
+  margin-left: 190px;
   border-radius: 10px;
-}
-.navBar{
-  margin-top: 0;
-  background-image: -webkit-linear-gradient(left,#1a1a1a 0%,gold 50%,#1a1a1a 100%);
-  display:inline-flex;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 100%;
 }
 .owner-link{
   margin-left: 250px;
@@ -22,11 +9,50 @@
   font-weight: bold;
   cursor: default;
 }
+.theme-text{
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 15px;
+}
+.theme-text:hover{
+  color: whitesmoke;
+}
+.toggle {
+  position : relative ;
+  display : inline-block;
+  height : 14px;
+  width: 36px;
+  padding: 0 .5px;
+  background-color: rgb(128, 128, 128);
+  border-radius: 30px;
+  border: 2px solid #242424;
+  color: rgb(128, 128, 128);
+  margin-top: 5px;
+  margin-left: 20px;
+}
+.toggle:after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: black;
+  left: -1px;
+  transition:  all 0.5s;
+}
+.checkbox:checked + .toggle::after {
+  left : 23px;
+  background-color: rgb(255, 255, 255);
+}
+.checkbox {
+  display : none;
+}
 .nav-text{
   color: rgb(0, 0, 0);
   text-decoration: none;
   font-weight: bold;
-  margin-left: 30px;
+  margin-left: 15px;
   cursor: pointer;
 }
 .nav-text:hover{
@@ -95,7 +121,7 @@
   color: #c1940d;
   margin-top: 0;
 }
-.input-search{
+/* .input-search{
   background-color: rgb(21, 21, 21);
   margin: 0px 0px 0px 10px;
   border: 0 solid;
@@ -103,8 +129,8 @@
   padding: 5px 10px 5px 10px;
   width: 500px;
   color: whitesmoke;
-}
-.input-search::placeholder{
+} */
+#input-search::placeholder{
   font-family: Arial;
   letter-spacing: .5px;
   color: rgb(207, 207, 53);
@@ -485,11 +511,6 @@
   filter: blur(2px);
   transition: .5s;
 }
-
-.profile{
-  padding: 1px;
-  background-color: #0e0e0e;
-}
 .pro-nav{
   display: flex;
   margin-left: 248px;
@@ -647,7 +668,7 @@
   font-family: Helvetica;
   z-index: 1000;
   border-radius: 5px;
-  padding: 10px 10px 2px 10px;
+  padding: 10px;
 }
 .modal-un{
   color: #232323;
@@ -705,7 +726,7 @@
 }
 .comment{
   background-color: #c3c3c3;
-  padding: 15px 20px;
+  padding: 5px 20px;
   border-radius: 10px;
   font-family: Helvetica;
   font-size: 15px;
@@ -714,13 +735,114 @@
 }
 .spoil-comment{
   filter: blur(3px);
+  background-color: #404040;
+  color: rgb(205, 205, 205);
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+.spoil-btn{
+  margin-top: -67px;
+  margin-left: 430px;
+  border-radius: 50%;
+  border: 2px solid rgb(64, 64, 64);
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  padding: 2px;
+  background-color: #c2c2c2;
+  cursor: pointer;
+  position: absolute;
+  z-index: 500;
+}
+.spoil-text{
+  margin-top: 7px;
+  color: rgb(46, 46, 46);
+}
+.cmt-user{
+  background-color: #404040;
+  color: rgb(205, 205, 205);
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+.cmt-username{
+  color: aqua;
+  margin-bottom: 5px;
+}
+.cmt-reply{
+  color: #0a004d;
+  text-decoration: underline;
+  float: right;
+  cursor: pointer;
+}
+.cmt-reply:hover{
+  color: #9cf0e2;
+}
+.reply-modal{
+  width: 207px;
+  padding: 10px;
+  background-color: rgb(151, 151, 151);
+  border-radius: 10px;
+  margin-top: 5px;
+}
+.close-icon-reply{
+  border: 2px solid #242424;
+  padding: 5px;
+  border-radius: 50%;
+  float: right;
+  margin-top: -21px;
+  cursor: pointer;
+  background-color: rgb(202, 202, 202);
+}
+.textarea-reply{
+  margin-top: 5px;
+  padding: 2px 10px;
+  border: 1px inset #242424;
+  border-radius: 2px;
+  background-color: #4f4f4f;
+  color: rgb(202, 202, 202);
+  font-size: 15px;
+  resize: none;
+  overflow: hidden;
+  height: 70px;
+}
+.send-cmt-reply{
+  background-color: rgb(125, 125, 125);
+  border: 2px solid #414141;
+  padding: 2px 7px;
+  color: #282828;
+  border-radius: 20px;
+  font-size: 15px;
+  font-family: 'Franklin Gothic Medium';
+  cursor: pointer;
+  text-align: center;
+}
+.send-cmt-reply:hover{
+  background-color: #414141;
+  color: rgb(167, 167, 167);
+}
+.modal-un-reply{
+  color: #232323;
+}
+.comment-reply{
   background-color: #c3c3c3;
-  padding: 15px 20px;
+  margin: 10px 5px;
+  padding: 5px 10px;
   border-radius: 10px;
   font-family: Helvetica;
   font-size: 15px;
   color: rgb(48, 48, 48);
   word-wrap: break-word;
+}
+.cmt-username-reply{
+  color: rgb(0, 7, 209);
+  margin-bottom: 5px;
+}
+.cmt-username-admin{
+  color: rgb(251, 0, 255);
 }
 
 .rate-div{

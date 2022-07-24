@@ -16,10 +16,8 @@ const SignIn = () => {
     if (thisUser) {
       const clone = { ...db };
       clone.db.currentUser = thisUser;
-
+      clone.db.currentUser.col = true;
       setDb(clone);
-
-      console.log(db.db.currentUser);
       navigate("/");
     }
     if (!thisUser) return alert("Username or Password is wrong !");

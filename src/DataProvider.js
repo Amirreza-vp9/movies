@@ -1,9 +1,16 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
 
 export const DataContext = createContext();
+const ThemeUpdateContext = React.createContext();
+
+export function useThemeUpdate() {
+  return useContext(ThemeUpdateContext);
+}
 
 export const DataProvider = ({ children }) => {
-  // const [userList, setUserList] = useState([]);
+  const [commentValue, setCommentValue] = useState("");
+  const [darkTheme, setDarkTheme] = useState(true);
+  const [spoiling, setSpoiling] = useState(false);
   const [db, setDb] = useState({
     db: {
       currentUser: null,
@@ -51,6 +58,7 @@ export const DataProvider = ({ children }) => {
             [3, "Drama"],
             [1, "Sci-Fi"],
           ],
+          comments: [],
           year: "2014",
           time: "2h 49m",
           directors: "Christopher Nolan",
@@ -108,6 +116,7 @@ export const DataProvider = ({ children }) => {
             [11, "Adventure"],
             [3, "Drama"],
           ],
+          comments: [],
           year: "2019",
           time: "3h 2m",
           directors: "Anthony Russo, Joe Russo",
@@ -144,6 +153,7 @@ export const DataProvider = ({ children }) => {
             [11, "Adventure"],
             [1, "Sci-Fi"],
           ],
+          comments: [],
           year: "2014",
           time: "1h 53m",
           directors: "Doug Liman",
@@ -195,6 +205,7 @@ export const DataProvider = ({ children }) => {
             [3, "Drama"],
             [6, "War"],
           ],
+          comments: [],
           year: "2014",
           time: "2h 14m",
           directors: "David Ayer",
@@ -231,6 +242,7 @@ export const DataProvider = ({ children }) => {
             [2, "Action"],
             [11, "Adventure"],
           ],
+          comments: [],
           year: "2019",
           time: "1h 44m",
           directors: "Dean DeBlois",
@@ -287,6 +299,7 @@ export const DataProvider = ({ children }) => {
             [11, "Adventure"],
             [12, "Comedy"],
           ],
+          comments: [],
           year: "2022",
           time: "1h 58m",
           directors: "Taika Waititi",
@@ -328,6 +341,7 @@ export const DataProvider = ({ children }) => {
             [2, "Action"],
             [11, "Adventure"],
           ],
+          comments: [],
           year: "2013-2023",
           time: "24m",
           directors: "Hajime Isayama.",
@@ -374,6 +388,7 @@ export const DataProvider = ({ children }) => {
             [11, "Adventure"],
             [3, "Drama"],
           ],
+          comments: [],
           year: "2013-2020",
           time: "44m",
           directors: "Michael Hirst",
@@ -415,6 +430,7 @@ export const DataProvider = ({ children }) => {
             [3, "Drama"],
             [10, "Sport"],
           ],
+          comments: [],
           year: "2011",
           time: "2h 20m",
           directors: "Gavin O'Connor",
@@ -456,6 +472,7 @@ export const DataProvider = ({ children }) => {
             [3, "Drama"],
             [1, "Sci-Fi"],
           ],
+          comments: [],
           year: "2017",
           time: "2h 17m",
           directors: "James Mangold",
@@ -497,6 +514,7 @@ export const DataProvider = ({ children }) => {
             [11, "Adventure"],
             [3, "Drama"],
           ],
+          comments: [],
           year: "2019-",
           time: "1h",
           directors: "Sean Daniel Company",
@@ -538,6 +556,7 @@ export const DataProvider = ({ children }) => {
             [3, "Drama"],
             [14, "History"],
           ],
+          comments: [],
           year: "2016",
           time: "2h 19m",
           directors: "Mel Gibson",
@@ -575,6 +594,7 @@ export const DataProvider = ({ children }) => {
             [15, "Crime"],
             [3, "Drama"],
           ],
+          comments: [],
           year: "2015",
           time: "2h 11m",
           directors:
@@ -627,6 +647,7 @@ export const DataProvider = ({ children }) => {
             [2, "Action"],
             [11, "Adventure"],
           ],
+          comments: [],
           year: "2016",
           time: "1h 35m",
           directors: "Jennifer Yuh Nelson, Alessandro Carloni",
@@ -658,6 +679,7 @@ export const DataProvider = ({ children }) => {
             [3, "Drama"],
             [1, "Sci-Fi"],
           ],
+          comments: [],
           year: "2007",
           time: "1h 41m",
           directors: "Francis Lawrence",
@@ -696,6 +718,7 @@ export const DataProvider = ({ children }) => {
           },
           rate: "",
           genres: [[2, "Action"], [4, "Thriller"], []],
+          comments: [],
           year: "2020",
           time: "1h 56m",
           directors: "Sam Hargrave",
@@ -732,6 +755,7 @@ export const DataProvider = ({ children }) => {
             [15, "Crime"],
             [4, "Thriller"],
           ],
+          comments: [],
           year: "2014",
           time: "2h 12m",
           directors: "Antoine Fuqua",
@@ -768,6 +792,7 @@ export const DataProvider = ({ children }) => {
             [2, "Action"],
             [12, "Comedy"],
           ],
+          comments: [],
           year: "2015-2019",
           time: "24m",
           directors: "-",
@@ -814,6 +839,7 @@ export const DataProvider = ({ children }) => {
             [16, "Musical"],
             [12, "Comedy"],
           ],
+          comments: [],
           year: "2013",
           time: "1h 42m",
           directors: "Chris Buck, Jennifer Lee",
@@ -855,6 +881,7 @@ export const DataProvider = ({ children }) => {
             [2, "Action"],
             [11, "Adventure"],
           ],
+          comments: [],
           year: "2016",
           time: "2h 12m",
           directors: "Antoine Fuqua",
@@ -895,6 +922,7 @@ export const DataProvider = ({ children }) => {
               },
             ],
           },
+          comments: [],
           rate: "",
           genres: [[7, "Western"], [3, "Drama"], []],
           year: "2012",
@@ -3391,26 +3419,45 @@ export const DataProvider = ({ children }) => {
           ],
         },
       ],
-      users: [],
+      users: [
+        {
+          UserName: "amir",
+          Email: "a",
+          Phone: "1",
+          Password: "reza",
+          col: false,
+          admin: true,
+          id: 9,
+          WatchList: [],
+          comments: [],
+        },
+      ],
     },
   });
+
+  function toggleTheme() {
+    setDarkTheme((prevDarkTheme) => !prevDarkTheme);
+  }
 
   useEffect(() => {
     if (db) return localStorage.setItem("database", JSON.stringify(db));
   }, [db]);
 
-  // useEffect(() => {
-  //   // const localData = localStorage.getItem("users");
-  //   // return localData ? JSON.parse(localData) : [];
-  //   const items = JSON.parse(localStorage.getItem("users"));
-  //   if (items) {
-  //     setUserList(items);
-  //   }
-  // });
-
   return (
-    <DataContext.Provider value={{ db: db, setDb: setDb }}>
-      {children}
+    <DataContext.Provider
+      value={{
+        db,
+        setDb,
+        darkTheme,
+        commentValue,
+        setCommentValue,
+        spoiling,
+        setSpoiling,
+      }}
+    >
+      <ThemeUpdateContext.Provider value={toggleTheme}>
+        {children}
+      </ThemeUpdateContext.Provider>
     </DataContext.Provider>
   );
 };
