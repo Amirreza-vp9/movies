@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import { DataContext, useThemeUpdate } from "./DataProvider";
 
 const Navbar = () => {
-  const [search, setSearch] = useState();
+  const { searchValue, setSearchValue } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
   const { db, setDb } = useContext(DataContext);
   const { darkTheme, setDarkTheme } = useContext(DataContext);
   const toggleTheme = useThemeUpdate();
+  const navigate = useNavigate();
 
   const themeStyle = {
     marginTop: "0",
@@ -31,17 +32,10 @@ const Navbar = () => {
     color: darkTheme ? "whitesmoke" : "rgb(21, 21, 21)",
   };
 
-  // function searching() {
-  //   userList.map((item) => {
-  //     if (search === item.name) {
-  //       console.log(true);
-  //     }
-  //   });
-  // }
-
-  // function theme() {
-  //   db.db.currentUser.col = !db.db.currentUser.col;
-  // }
+  function search(item) {
+    navigate(`/profile/${item.id}`);
+    setSearchValue("");
+  }
 
   return (
     <>
@@ -63,23 +57,56 @@ const Navbar = () => {
               setIsOpen(true);
             }}
           >
-            {db.db.currentUser.col === true ? "Menu" : ""}
+            {db.db.currentUser ? "Menu" : ""}
           </div>
-
           <NavLink to={"/"} className="nav-text">
             Home
           </NavLink>
           <div className="search">
             <input
-              value={search}
+              value={searchValue}
               style={searchStyle}
               id="input-search"
               placeholder="Search"
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearchValue(e.target.value)}
             ></input>
           </div>
+          {searchValue === "" ? (
+            ""
+          ) : (
+            <div className="searchResult-div">
+              {db.db.movies
+                .filter((el) => {
+                  return el.name
+                    .toLowerCase()
+                    .includes(searchValue.toLowerCase());
+                })
+                .map((item) => {
+                  return (
+                    <>
+                      <div
+                        className="searchResult"
+                        onClick={() => search(item)}
+                      >
+                        <img
+                          src={item.url}
+                          width="70"
+                          height="100"
+                          style={{ borderRadius: "10px" }}
+                        />
+                        <div style={{ marginLeft: "10px" }}>
+                          <div>{item.name}</div>
+                          <div>{item.imdb}</div>
+                          <div>{item.storyLine}</div>
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
+            </div>
+          )}
           <NavLink to={"/watchList"} className="nav-text">
-            {db.db.currentUser.col === true ? "WatchList" : ""}
+            {db.db.currentUser ? "WatchList" : ""}
           </NavLink>
           <NavLink to={"/signIn"} className="nav-text">
             Sign In

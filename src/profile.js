@@ -15,6 +15,7 @@ const Profile = () => {
   const { darkTheme, setDarkTheme } = useContext(DataContext);
   const { commentValue, setCommentValue } = useContext(DataContext);
   const { spoiling, setSpoiling } = useContext(DataContext);
+  // const { indexCmt, setIndexCmt } = useContext(DataContext);
   const params = useParams();
   const thatMovie = db.db.movies.find((info) => info.id == params.id);
   const UID = () =>
@@ -62,6 +63,7 @@ const Profile = () => {
         userName: db.db.currentUser.UserName,
         admin: db.db.currentUser.admin,
         // spoil: spoiling,
+        col: false,
         reply: [],
         id: UID(),
       });
@@ -81,6 +83,17 @@ const Profile = () => {
 
   function cmtReply() {
     setIsOpen4(true);
+    thatMovie.comments.filter((item, i) => {
+      item.col = true;
+    });
+  }
+
+  function addWatchList() {
+    const clone = { ...db };
+    clone.db.currentUser.WatchList.push(thatMovie);
+    setDb(clone);
+    console.log(db.db.currentUser.WatchList);
+    alert("Succeed");
   }
 
   return (
@@ -96,6 +109,7 @@ const Profile = () => {
                     <div className="title">{item.year}</div>
                     <div className="title">{item.age}</div>
                     <div className="title">{item.time}</div>
+                    <div className="title">{item.type}</div>
                     <div className="imdb">
                       <div className="imdb-label">IMDb RATING</div>
                       <div className="imdb-rate">{item.imdb}</div>
@@ -107,7 +121,10 @@ const Profile = () => {
                       src={item.url}
                       height="400"
                       width="270"
-                    />
+                    ></img>
+                    <div className="add-watchList" onClick={addWatchList}>
+                      +
+                    </div>
                     <video className="video" width="710" height="400" controls>
                       <source src={item.trailer} type="video/mp4" />
                     </video>
@@ -206,7 +223,7 @@ const Profile = () => {
                   </Comment>
                   <div className="comments">
                     <div className="comment">
-                      {thatMovie.comments.map((el) => {
+                      {thatMovie.comments.map((el, i) => {
                         return (
                           <>
                             <div className="cmt-user">
@@ -226,11 +243,17 @@ const Profile = () => {
                               <div className="cmt-reply" onClick={cmtReply}>
                                 Reply
                               </div>
-                              <Reply
-                                thisMovie={thatMovie}
-                                open4={isOpen4}
-                                onClose4={setIsOpen4}
-                              ></Reply>
+                              {el.col === true ? (
+                                <Reply
+                                  thisMovie={thatMovie}
+                                  open4={isOpen4}
+                                  onClose4={setIsOpen4}
+                                  index={i}
+                                ></Reply>
+                              ) : (
+                                ""
+                              )}
+
                               <div>
                                 {el.reply.map((el2) => {
                                   return (
@@ -238,8 +261,9 @@ const Profile = () => {
                                       <div className="comment-reply">
                                         <div
                                           className={
-                                            // el2.admin === true ? "cmt-username-admin" :
-                                            "cmt-username-reply"
+                                            el2.admin === true
+                                              ? "cmt-username-admin"
+                                              : "cmt-username-reply"
                                           }
                                         >
                                           {el2.userName}

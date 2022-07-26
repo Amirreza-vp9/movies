@@ -10,6 +10,8 @@ export function useThemeUpdate() {
 export const DataProvider = ({ children }) => {
   const [commentValue, setCommentValue] = useState("");
   const [darkTheme, setDarkTheme] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
+  const [indexCmt, setIndexCmt] = useState();
   const [spoiling, setSpoiling] = useState(false);
   const [db, setDb] = useState({
     db: {
@@ -354,7 +356,7 @@ export const DataProvider = ({ children }) => {
           id: 8,
           name: "Vikings",
           url: "/images/Vikings.jpg",
-          trailer: "",
+          trailer: "/videos/vikings.mp4",
           type: "TV Series",
           age: "TV-MA",
           imdb: "8.5/10",
@@ -1347,7 +1349,7 @@ export const DataProvider = ({ children }) => {
               id: 8,
               name: "Vikings",
               url: "/images/Vikings.jpg",
-              trailer: "",
+              trailer: "/videos/vikings.mp4",
               type: "TV Series",
               age: "TV-MA",
               imdb: "8.5/10",
@@ -1829,7 +1831,7 @@ export const DataProvider = ({ children }) => {
               id: 8,
               name: "Vikings",
               url: "/images/Vikings.jpg",
-              trailer: "",
+              trailer: "/videos/vikings.mp4",
               type: "TV Series",
               age: "TV-MA",
               imdb: "8.5/10",
@@ -2919,7 +2921,7 @@ export const DataProvider = ({ children }) => {
               id: 8,
               name: "Vikings",
               url: "/images/Vikings.jpg",
-              trailer: "",
+              trailer: "/videos/vikings.mp4",
               type: "TV Series",
               age: "TV-MA",
               imdb: "8.5/10",
@@ -3453,6 +3455,10 @@ export const DataProvider = ({ children }) => {
         setCommentValue,
         spoiling,
         setSpoiling,
+        searchValue,
+        setSearchValue,
+        indexCmt,
+        setIndexCmt,
       }}
     >
       <ThemeUpdateContext.Provider value={toggleTheme}>

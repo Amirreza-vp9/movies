@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Category from "./category";
 import Category2 from "./category2";
 import { DataContext } from "./DataProvider";
+import { NavLink } from "react-router-dom";
 
 export default function Modal({ open, onClose, open2, onClose2 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,21 +11,30 @@ export default function Modal({ open, onClose, open2, onClose2 }) {
   if (!open) return null;
 
   function logOut() {
-    const clone = { ...db };
-    clone.db.currentUser.col = false;
-    setDb(clone);
-    console.log(db.db.users);
+    let answer = window.confirm("Are you sure to Log out ?");
+    if (answer) {
+      const clone = { ...db };
+      clone.db.currentUser = null;
+      setDb(clone);
+    }
   }
 
   return (
     <>
-      {db.db.currentUser.col === true ? (
+      {db.db.currentUser ? (
         <>
           <div className="backdrop" onClick={onClose}></div>
           <div className="modal">
             {db.db.currentUser.admin === true && (
               <div className="C-link">Dashboard</div>
             )}
+            <br />
+            {db.db.currentUser.admin === true && (
+              <NavLink to={"/setMovie"} className="C-link">
+                Set Movie/TV Series
+              </NavLink>
+            )}
+            <br />
             <br />
             <div
               className="C-link"
@@ -41,20 +51,14 @@ export default function Modal({ open, onClose, open2, onClose2 }) {
                 setIsOpen2(true);
               }}
             >
-              TV Shows
+              TV Series
             </div>
             <br />
             <div className="C-link">Contact us</div>
             <br />
-            {db.db.users.map((item, i) => {
-              return (
-                <>
-                  <div className="C-link" onClick={() => logOut(i)}>
-                    Log out
-                  </div>
-                </>
-              );
-            })}
+            <div className="C-link" onClick={logOut}>
+              Log out
+            </div>
           </div>
           <Category open={isOpen} onClose={() => setIsOpen(false)}></Category>
           <Category2

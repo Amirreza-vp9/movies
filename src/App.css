@@ -62,6 +62,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
+  z-index: 1000;
   background-color: rgb(40, 40, 40);
   font-style: oblique;
   padding: 2px 70px 820px 30px;
@@ -69,6 +70,7 @@
 }
 .modalC{
   position: absolute;
+  z-index: 1000;
   top: 150px;
   background-color: rgba(0, 0, 0, 0.384);
   /* z-index: 1000; */
@@ -77,6 +79,7 @@
   overflow: hidden;
 }
 .backdrop {
+  z-index: 1000;
   width: 100vw;
   height: 100vh;
   background: black;
@@ -86,15 +89,7 @@
   position: fixed;
 }
 .backdropC {
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  opacity: .7;
-  top: 0;
-  right: 0;
-  position: fixed;
-}
-.backdropC {
+  z-index: 1000;
   width: 100vw;
   height: 100vh;
   background: black;
@@ -121,15 +116,31 @@
   color: #c1940d;
   margin-top: 0;
 }
-/* .input-search{
-  background-color: rgb(21, 21, 21);
-  margin: 0px 0px 0px 10px;
-  border: 0 solid;
+.searchResult-div{
+  background-color: rgb(35, 35, 35);
+  position: absolute;
+  padding-bottom: 10px;
+  width: 520px;
+  margin-left: 509.5px;
+  margin-top: 27px;
   border-radius: 5px;
-  padding: 5px 10px 5px 10px;
-  width: 500px;
+  z-index: 1000;
+}
+.searchResult{
+  position: relative;
   color: whitesmoke;
-} */
+  background-color: #525252;
+  padding: 5px;
+  margin-left: 12px;
+  margin-top: 10px;
+  width: 485px;
+  border-radius: 5px;
+  cursor: default;
+  display: flex;
+}
+.searchResult:hover{
+  background-color: #525252aa;
+}
 #input-search::placeholder{
   font-family: Arial;
   letter-spacing: .5px;
@@ -236,6 +247,7 @@
   letter-spacing: 4px;
   width: 280px;
   text-align: center;
+  cursor: default;
 }
 .login-box .a-submit:hover{
   background: rgb(255, 0, 234);
@@ -470,6 +482,7 @@
   text-align: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  cursor: default;
 }
 .category-sl{
   position: relative;
@@ -531,7 +544,7 @@
 }
 .imdb{
   text-align: center;
-  margin-left: 715px;
+  margin-left: 655px;
   margin-top: -20px;
 }
 .imdb-label{
@@ -546,6 +559,35 @@
   display: flex;
   justify-content: center;
   margin-top: 10px;
+}
+.add-watchList{
+  margin-right: 500px;
+  background-color: #232323;
+  padding: 0px 10px 6px 10px;
+  font-size: 30px;
+  border: 2px solid rgb(223, 223, 223);
+  border-radius: 50%;
+  cursor: pointer;
+  color: #ffffff;
+  position: absolute;
+}
+.add-watchList:hover{
+  background-color: #727272;
+}
+.remove-watchList{
+  margin-left: 200px;
+  background-color: #232323;
+  padding: 0px 15px 6px 15px;
+  font-size: 30px;
+  border: 2px solid rgb(223, 223, 223);
+  border-radius: 50%;
+  cursor: pointer;
+  color: #ffffff;
+  z-index: 500;
+  position: absolute;
+}
+.remove-watchList:hover{
+  background-color: #727272;
 }
 .video{
   margin-left: 5px;
@@ -843,6 +885,186 @@
 }
 .cmt-username-admin{
   color: rgb(251, 0, 255);
+}
+
+.watchList-box{
+  position: absolute;
+  top: 1150px;
+  left: 50%;
+  width: 400px;
+  padding: 30px 40px 30px 40px;
+  transform: translate(-50%, -50%);
+  background: #000;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgb(0, 0, 0, .6);
+  border-radius: 10px;
+}
+.watchList-box h2{
+  margin: 0 0 30px;
+  padding: 0;
+  color: aqua;
+  text-align: center;
+}
+.watchList-box .user-box{
+  position: relative;
+}
+.watchList-box .user-box input{
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: aqua;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid aqua;
+  outline: none;
+  background: transparent;
+}
+.watchList-box .user-box label{
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: aqua;
+  pointer-events: none;
+  transition: .5s;
+}
+.watchList-box .user-box input:focus ~ label,
+.watchList-box .user-box input:valid ~ label{
+  top: -20px;
+  left: 0;
+  color: rgb(255, 0, 234);
+  letter-spacing: .5px;
+  font-size: 13px;
+}
+.watchList-box .user-box input:focus ~ .marks,
+.watchList-box .user-box input:valid ~ .marks{
+  top: -20px;
+  left: 0;
+  color: red;
+  letter-spacing: .5px;
+  font-size: 13px;
+}
+.watchList-box form .a-submit{
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: rgb(255, 0, 234);
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 30px;
+  letter-spacing: 4px;
+  width: 280px;
+  text-align: center;
+  cursor: default;
+}
+.watchList-box .a-submit:hover{
+  background: rgb(255, 0, 234);
+  color: aqua;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgb(255, 0, 234),
+              0 0 25px rgb(255, 0, 234),
+              0 0 50px rgb(255, 0, 234),
+              0 0 100px rgb(255, 0, 234);
+}
+.watchList-box .a-submit span{
+  position: absolute;
+  display: block;
+}
+.watchList-box .a-submit span:nth-child(1){
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(255, 0, 234));
+  animation: btn-anim1 1s linear infinite;
+}
+@keyframes btn-anim1 {
+  0%{
+      left: -100%;
+  }
+  50%,100%{
+      left: 100%;
+  }
+}
+.watchList-box .a-submit span:nth-child(2){
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, rgb(255, 0, 234));
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s;
+}
+@keyframes btn-anim2 {
+  0%{
+      top: -100%;
+  }
+  50%,100%{
+      top: 100%;
+  }
+}
+.watchList-box .a-submit span:nth-child(3){
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, rgb(255, 0, 234));
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s;
+}
+@keyframes btn-anim3 {
+  0%{
+      right: -100%;
+  }
+  50%,100%{
+      right: 100%;
+  }
+}
+.watchList-box .a-submit span:nth-child(4){
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, rgb(255, 0, 234));
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s;
+}
+@keyframes btn-anim4 {
+  0%{
+      bottom: -100%;
+  }
+  50%,100%{
+      bottom: 100%;
+  }
+}
+.h-sign{
+  margin-bottom: 0;
+  color: aqua;
+}
+.Link-sign-up{
+  color: rgba(255, 0, 234, 0.467);
+  text-decoration: none;
+  font-family:'Lucida Sans';
+  margin-top: -17px;
+  float: right;
+  margin-bottom: 0;
+}
+.Link-sign-up:hover{
+  color: rgb(255, 0, 234);
+}
+.removeFromWatchList{
+  color: whitesmoke;
+  position: absolute;
+  margin-top: -30px;
+  margin-left: 190px;
+  cursor: pointer;
+}
+.removeFromWatchList:hover{
+  color: #00ffd5;
 }
 
 .rate-div{

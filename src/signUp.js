@@ -52,7 +52,7 @@ const SignUp = () => {
     <>
       <div className="body-sign">
         <div className="login-box">
-          <h2>Login</h2>
+          <h2>Sign up</h2>
           <form>
             <div className="user-box">
               <input

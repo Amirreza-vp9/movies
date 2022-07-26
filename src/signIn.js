@@ -16,7 +16,6 @@ const SignIn = () => {
     if (thisUser) {
       const clone = { ...db };
       clone.db.currentUser = thisUser;
-      clone.db.currentUser.col = true;
       setDb(clone);
       navigate("/");
     }

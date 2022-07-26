@@ -1,25 +1,11 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DataContext } from "./DataProvider";
 
-const List = () => {
+const List2 = () => {
   const { db, setDb } = useContext(DataContext);
   const params = useParams();
   const navigate = useNavigate();
-
-  function removeFromWatchList(i) {
-    let answer = window.confirm("Are you sure to Log out ?");
-    if (answer) {
-      const clone = { ...db };
-      clone.db.genres.filter((element) => {
-        element.movies.splice(i, 1);
-      });
-      setDb(clone);
-      const clone2 = { ...db };
-      clone2.db.movies.splice(i, 1);
-      setDb(clone2);
-    }
-  }
 
   return (
     <>
@@ -27,20 +13,12 @@ const List = () => {
         {db.db.genres.map((item) => {
           return (
             <>
-              {item.movies.map((el, i) => {
+              {item.movies.map((el) => {
                 return (
                   <>
-                    {":" + item.id === params.id && el.type === "Movie" ? (
+                    {":" + item.id === params.id && el.type === "TV Series" ? (
                       <div className="category-div">
                         <div className="category-name">{el.name}</div>
-                        {db.db.currentUser.admin === true && (
-                          <div
-                            className="removeFromWatchList"
-                            onClick={() => removeFromWatchList(i)}
-                          >
-                            remove
-                          </div>
-                        )}
                         <img
                           className="category-img"
                           src={el.url}
@@ -72,4 +50,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default List2;

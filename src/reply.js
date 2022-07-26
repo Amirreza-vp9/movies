@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { DataContext } from "./DataProvider";
 
-const Reply = ({ open4, onClose4, thisMovie }) => {
+const Reply = ({ open4, onClose4, thisMovie, index }) => {
   const [replyValue, setReplyValue] = useState("");
   const { db, setDb } = useContext(DataContext);
   if (!open4) return null;
@@ -10,18 +10,21 @@ const Reply = ({ open4, onClose4, thisMovie }) => {
     if (replyValue === "") {
       alert("Please write your reply");
     } else {
-      console.log(thisMovie.comments[0]);
-
-      //   thisMovie.comments.filter((item) => {
-      //     item.reply.push({
-      //       messages: replyValue,
-      //       userName: db.db.currentUser.UserName,
-      //       admin: db.db.currentUser.admin,
-      //     });
-      //   });
-      setReplyValue("");
+      thisMovie.comments[index].reply.push({
+        messages: replyValue,
+        userName: db.db.currentUser.UserName,
+        admin: db.db.currentUser.admin,
+      });
       onClose4(false);
+      setReplyValue("");
     }
+  }
+
+  function closeIcon() {
+    thisMovie.comments.filter((item) => {
+      item.col = false;
+    });
+    onClose4(false);
   }
 
   const handleMessageChange2 = (event) => {
@@ -34,7 +37,7 @@ const Reply = ({ open4, onClose4, thisMovie }) => {
         <div className="modal-un-reply">{db.db.currentUser.UserName}</div>
         <img
           className="close-icon-reply"
-          onClick={() => onClose4(false)}
+          onClick={closeIcon}
           src="/images/close.jpg"
           height="10px"
           width="10px"

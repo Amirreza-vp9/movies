@@ -5,9 +5,11 @@ import Owner from "./owner";
 import SignIn from "./signIn";
 import SignUp from "./signUp";
 import List from "./list";
+import List2 from "./list2";
 import Home from "./home";
 import Profile from "./profile";
 import WatchList from "./watchList";
+import SetMovie from "./setMovie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DataContext } from "./DataProvider";
 
@@ -24,11 +26,13 @@ export default function App() {
       <Routes>
         <Route path="/" element={<WebLayout />}>
           <Route path="/list/:id" element={<List />} />
+          <Route path="/list2/:id" element={<List2 />} />
           <Route path="/" element={<Home />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/watchList" element={<WatchList />} />
+          <Route path="/setMovie" element={<SetMovie />} />
         </Route>
         <Route path="/owner" element={<Owner />} />
-        <Route path="/watchList" element={<WatchList />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
