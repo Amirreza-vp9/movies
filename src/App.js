@@ -12,6 +12,7 @@ import WatchList from "./watchList";
 import SetMovie from "./setMovie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DataContext } from "./DataProvider";
+import Dashboard from "./dashboard";
 
 export default function App() {
   const { db, setDb } = useContext(DataContext);
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/watchList" element={<WatchList />} />
           <Route path="/setMovie" element={<SetMovie />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route path="/owner" element={<Owner />} />
         <Route path="/signIn" element={<SignIn />} />

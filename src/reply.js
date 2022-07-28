@@ -9,11 +9,17 @@ const Reply = ({ open4, onClose4, thisMovie, index }) => {
   function sendReply() {
     if (replyValue === "") {
       alert("Please write your reply");
+      thisMovie.comments.filter((item) => {
+        item.col = false;
+      });
     } else {
       thisMovie.comments[index].reply.push({
         messages: replyValue,
         userName: db.db.currentUser.UserName,
         admin: db.db.currentUser.admin,
+      });
+      thisMovie.comments.filter((item) => {
+        item.col = false;
       });
       onClose4(false);
       setReplyValue("");

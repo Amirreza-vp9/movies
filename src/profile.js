@@ -1,21 +1,19 @@
 import React, { useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import Rate from "./rate";
+import ReactStars from "react-stars";
 import Comment from "./comment";
 import { DataContext } from "./DataProvider";
-import Spoil from "./spoil";
 import Reply from "./reply";
+import * as BsIcons from "react-icons/bs";
+import Spoil from "./spoil";
 
-const Profile = () => {
+const Profile = ({ index00, element00 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const { db, setDb } = useContext(DataContext);
-  const [isOpen3, setIsOpen3] = useState(false);
   const [isOpen4, setIsOpen4] = useState(false);
   const { darkTheme, setDarkTheme } = useContext(DataContext);
   const { commentValue, setCommentValue } = useContext(DataContext);
-  const { spoiling, setSpoiling } = useContext(DataContext);
-  // const { indexCmt, setIndexCmt } = useContext(DataContext);
   const params = useParams();
   const thatMovie = db.db.movies.find((info) => info.id == params.id);
   const UID = () =>
@@ -26,31 +24,11 @@ const Profile = () => {
     backgroundColor: darkTheme ? "#0e0e0e" : "rgb(94, 97, 100)",
   };
 
-  // const spoilStyle = {
-  //   filter: spoiling ? "blur(3px)" : "blur(0px)",
-  //   backgroundColor: "#404040",
-  //   color: "rgb(205, 205, 205)",
-  //   padding: "5px",
-  //   marginTop: "20px",
-  //   marginBottom: "20px",
-  //   borderRadius: "10px",
-  // };
-
   function onClose2() {
     setIsOpen2(false);
   }
 
-  // function spoil() {
-  //   spoiling === false ? setSpoiling(true) : setSpoiling(false);
-  //   db.db.movies.filter((item) => {
-  //     item.comments.filter((el) => {
-  //       console.log(el.spoil);
-  //     });
-  //   });
-  // }
-
   function send() {
-    spoiling === true ? setIsOpen3(true) : setIsOpen3(false);
     if (commentValue === "") {
       alert("Please Write a Comment");
     } else {
@@ -62,8 +40,8 @@ const Profile = () => {
         messages: commentValue,
         userName: db.db.currentUser.UserName,
         admin: db.db.currentUser.admin,
-        // spoil: spoiling,
         col: false,
+        spoil: false,
         reply: [],
         id: UID(),
       });
@@ -81,11 +59,22 @@ const Profile = () => {
     setCommentValue(event.target.value);
   };
 
-  function cmtReply() {
+  function cmtReply(el) {
     setIsOpen4(true);
-    thatMovie.comments.filter((item, i) => {
-      item.col = true;
+    thatMovie.comments.filter((item) => {
+      if (item.id === el.id) {
+        item.col = true;
+      }
     });
+  }
+
+  function removeCmt(i, index0) {
+    let answer = window.confirm("Are you sure ?");
+    if (answer) {
+      const clone = { ...db };
+      clone.db.movies[index0].comments.splice(i, 1);
+      setDb(clone);
+    }
   }
 
   function addWatchList() {
@@ -96,12 +85,46 @@ const Profile = () => {
     alert("Succeed");
   }
 
+  const ratingChanged = (newRating) => {
+    const clone = { ...db };
+    thatMovie.rate.push(newRating);
+    clone.db.currentUser.movies[index00].rate.push(newRating);
+    setDb(clone);
+    let sum = 0;
+    thatMovie.rate.forEach((item) => {
+      sum += item;
+    });
+    let avg = sum / thatMovie.rate.length;
+    thatMovie.rateResult = avg.toFixed(2);
+  };
+
+  // function spoil(element00) {
+  //   isOpen === false ? setIsOpen(true) : setIsOpen(false);
+  //   const clone = { ...db };
+  //   if (isOpen === false) {
+  //     clone.db.movies[index00].comments.filter((item) => {
+  //       if (item.id === element00.id) {
+  //         item.spoil = true;
+  //       }
+  //     });
+  //   } else {
+  //     clone.db.movies[index00].comments.filter((item) => {
+  //       if (item.id === element00.id) {
+  //         item.spoil = false;
+  //       }
+  //     });
+  //   }
+  //   setDb(clone);
+  //   console.log(element00);
+  // }
+
   return (
     <>
       {db.db.currentUser && (
         <div style={themeStyle}>
-          {db.db.movies.map((item) => {
+          {db.db.movies.map((item, index0) => {
             if (item.id === thatMovie.id) {
+              index00 = index0;
               return (
                 <>
                   <div className="title-name">{item.name}</div>
@@ -115,6 +138,10 @@ const Profile = () => {
                       <div className="imdb-rate">{item.imdb}</div>
                     </div>
                   </div>
+                  <BsIcons.BsBookmarkPlus
+                    className="add-watchList"
+                    onClick={addWatchList}
+                  />
                   <div className="inner-profile1">
                     <img
                       className="profile-img"
@@ -122,9 +149,6 @@ const Profile = () => {
                       height="400"
                       width="270"
                     ></img>
-                    <div className="add-watchList" onClick={addWatchList}>
-                      +
-                    </div>
                     <video className="video" width="710" height="400" controls>
                       <source src={item.trailer} type="video/mp4" />
                     </video>
@@ -142,13 +166,21 @@ const Profile = () => {
                     >
                       {item.genres[2][1]}
                     </Link>
-                    <div
-                      className="rate-div"
-                      onClick={() => {
-                        setIsOpen(true);
-                      }}
-                    >
-                      Rate
+                    <div className="rate">
+                      {db.db.currentUser.movies[index0].rate.length === 0 ? (
+                        <ReactStars
+                          count={5}
+                          onChange={ratingChanged}
+                          size={24}
+                          color2={"#ffd700"}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="show-rate">{thatMovie.rateResult}</div>
+                    <div className="show-rate-number">
+                      {thatMovie.rate.length}
                     </div>
                   </div>
                   <div className="profile-sl">{item.storyLine}</div>
@@ -224,14 +256,16 @@ const Profile = () => {
                   <div className="comments">
                     <div className="comment">
                       {thatMovie.comments.map((el, i) => {
+                        element00 = el;
                         return (
                           <>
-                            <div className="cmt-user">
+                            <div
+                              className={
+                                el.spoil === true ? "spoil-comment" : "cmt-user"
+                              }
+                            >
                               <div
                                 className={
-                                  // el.spoil === true
-                                  //   ? "spoil-comment"
-                                  //   :
                                   el.admin === true
                                     ? "cmt-username-admin"
                                     : "cmt-username"
@@ -239,8 +273,21 @@ const Profile = () => {
                               >
                                 {el.userName}
                               </div>
+                              {db.db.currentUser.admin === true ? (
+                                <div
+                                  className="remove-comment"
+                                  onClick={() => removeCmt(i, index0)}
+                                >
+                                  Delete
+                                </div>
+                              ) : (
+                                ""
+                              )}
                               {el.messages}
-                              <div className="cmt-reply" onClick={cmtReply}>
+                              <div
+                                className="cmt-reply"
+                                onClick={() => cmtReply(el)}
+                              >
                                 Reply
                               </div>
                               {el.col === true ? (
@@ -276,18 +323,14 @@ const Profile = () => {
                               </div>
                             </div>
                             {/* <Spoil
-                              open3={isOpen3}
-                              onClose3={() => {
-                                setIsOpen3(false);
-                                setSpoiling(false);
-                              }}
-                            ></Spoil> */}
+                              open={isOpen}
+                              onClose={() => setIsOpen(false)}
+                            /> */}
                           </>
                         );
                       })}
                     </div>
                   </div>
-                  <Rate open={isOpen} onClose={() => setIsOpen(false)}></Rate>
                 </>
               );
             }

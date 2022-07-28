@@ -233,6 +233,52 @@ const SetMovie = () => {
           }
         });
         setDb(clone4);
+
+        const clone5 = { ...db };
+        clone4.db.users.filter((el) => {
+          el.movies.push({
+            id: clone.db.movies[clone.db.movies.length - 1].id,
+            name: inputValue,
+            url: inputValue3,
+            trailer: inputValue12,
+            type: inputValue2,
+            age: inputValue4,
+            imdb: inputValue5,
+            topCast: {
+              cast: [
+                {
+                  name: inputValue6,
+                  role: inputValue23,
+                  url: inputValue9,
+                },
+                {
+                  name: inputValue7,
+                  role: inputValue24,
+                  url: inputValue10,
+                },
+                {
+                  name: inputValue8,
+                  role: inputValue25,
+                  url: inputValue11,
+                },
+              ],
+            },
+            rate: "",
+            genres: [
+              [parseInt(inputValue14)],
+              [parseInt(inputValue15)],
+              [parseInt(inputValue16)],
+            ],
+            comments: [],
+            year: inputValue17,
+            time: inputValue18,
+            directors: inputValue19,
+            boxOffice: inputValue20,
+            distributedBy: inputValue21,
+            storyLine: inputValue22,
+          });
+        });
+        setDb(clone5);
       }
     }
   }

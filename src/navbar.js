@@ -2,6 +2,9 @@ import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import { DataContext, useThemeUpdate } from "./DataProvider";
+import * as GiIcons from "react-icons/gi";
+import * as ImIcons from "react-icons/im";
+import * as BsIcons from "react-icons/bs";
 
 const Navbar = () => {
   const { searchValue, setSearchValue } = useContext(DataContext);
@@ -24,7 +27,7 @@ const Navbar = () => {
 
   const searchStyle = {
     backgroundColor: darkTheme ? "rgb(21, 21, 21)" : "whitesmoke",
-    margin: "0px 0px 0px 10px",
+    margin: "0px 10px 0px 10px",
     border: "0 solid",
     borderRadius: "5px",
     padding: "5px 10px 5px 10px",
@@ -51,6 +54,9 @@ const Navbar = () => {
             width="80px"
             className="movie-img"
           />
+          <div className="icons">
+            <GiIcons.GiHamburgerMenu />
+          </div>
           <div
             className="nav-text"
             onClick={() => {
@@ -58,6 +64,9 @@ const Navbar = () => {
             }}
           >
             {db.db.currentUser ? "Menu" : ""}
+          </div>
+          <div className="icons">
+            <ImIcons.ImHome />
           </div>
           <NavLink to={"/"} className="nav-text">
             Home
@@ -105,11 +114,14 @@ const Navbar = () => {
                 })}
             </div>
           )}
+          <div className="icons">
+            <BsIcons.BsFillBookmarkFill />
+          </div>
           <NavLink to={"/watchList"} className="nav-text">
             {db.db.currentUser ? "WatchList" : ""}
           </NavLink>
-          <NavLink to={"/signIn"} className="nav-text">
-            Sign In
+          <NavLink to={"/signIn"} className="nav-text2">
+            SignIn
           </NavLink>
           <NavLink to={"/owner"} className="owner-link">
             Owner

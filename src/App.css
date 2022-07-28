@@ -3,7 +3,7 @@
   border-radius: 10px;
 }
 .owner-link{
-  margin-left: 250px;
+  margin-left: 200px;
   color: rgb(59, 59, 59);
   text-decoration: none;
   font-weight: bold;
@@ -48,14 +48,31 @@
 .checkbox {
   display : none;
 }
+.icons{
+  margin-top: 2px;
+  margin-left: 15px;
+}
+.icons:hover{
+  color: whitesmoke;
+}
 .nav-text{
   color: rgb(0, 0, 0);
   text-decoration: none;
   font-weight: bold;
-  margin-left: 15px;
+  margin-left: 1px;
+  cursor: pointer;
+}
+.nav-text2{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: bold;
   cursor: pointer;
 }
 .nav-text:hover{
+  color: whitesmoke;
+}
+.nav-text2:hover{
   color: whitesmoke;
 }
 .modal{
@@ -71,11 +88,11 @@
 .modalC{
   position: absolute;
   z-index: 1000;
-  top: 150px;
+  top: 250px;
   background-color: rgba(0, 0, 0, 0.384);
   /* z-index: 1000; */
   font-style: oblique;
-  padding: 2px 70px 22px 30.5px;
+  padding: 2px 132px 22px 30.5px;
   overflow: hidden;
 }
 .backdrop {
@@ -121,7 +138,7 @@
   position: absolute;
   padding-bottom: 10px;
   width: 520px;
-  margin-left: 509.5px;
+  margin-left: 545px;
   margin-top: 27px;
   border-radius: 5px;
   z-index: 1000;
@@ -561,18 +578,15 @@
   margin-top: 10px;
 }
 .add-watchList{
-  margin-right: 500px;
-  background-color: #232323;
-  padding: 0px 10px 6px 10px;
-  font-size: 30px;
-  border: 2px solid rgb(223, 223, 223);
-  border-radius: 50%;
-  cursor: pointer;
-  color: #ffffff;
   position: absolute;
+  color: #000000;
+  font-size: 40px;
+  margin-top: 15px;
+  margin-left: 495px;
+  cursor: pointer;
 }
 .add-watchList:hover{
-  background-color: #727272;
+  background-color: #72727253;
 }
 .remove-watchList{
   margin-left: 200px;
@@ -741,6 +755,15 @@
 }
 .spoil{
   cursor: pointer;
+  background-color: #232323;
+  color: whitesmoke;
+  width: 32px;
+  padding: 2px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+}
+.spoil:hover{
+  color: gray;
 }
 .send-cmt{
   background-color: rgb(125, 125, 125);
@@ -753,6 +776,15 @@
   cursor: pointer;
   text-align: center;
   width: 100%;
+}
+.remove-comment{
+  position: absolute;
+  color: yellow;
+  margin-left: 800px;
+  cursor: default;
+}
+.remove-comment:hover{
+  color: rgb(115, 115, 0);
 }
 .send-cmt:hover{
   background-color: #414141;
@@ -785,18 +817,21 @@
   border-radius: 10px;
 }
 .spoil-btn{
-  margin-top: -67px;
+  position: absolute;
+  margin-top: -60px;
   margin-left: 430px;
   border-radius: 50%;
   border: 2px solid rgb(64, 64, 64);
-  width: 35px;
-  height: 35px;
+  width: 55px;
   text-align: center;
-  padding: 2px;
-  background-color: #c2c2c2;
+  padding: 5px;
+  background-color: #dddddd;
+  color: #000;
   cursor: pointer;
-  position: absolute;
   z-index: 500;
+}
+.spoil-btn:hover{
+  background-color: #9d9d9d;
 }
 .spoil-text{
   margin-top: 7px;
@@ -1067,57 +1102,101 @@
   color: #00ffd5;
 }
 
-.rate-div{
-  margin-left: 640px;
-  margin-top: 20px;
-  color: #d4d700;
-  cursor: pointer;
-}
-.rate-div:hover{
-  color: gray;
-}
 .rate{
-  display: flex;
-  margin-left: 25%;
-  margin-top: 100px;
-  font-size: 50px;
+  margin-left: 492px;
 }
-.modal-pro{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(35, 35, 35);
-  z-index: 1000;
-  color: aliceblue;
+.show-rate{
+  position: absolute;
+  background-color: #e6e6e6;
+  width: 100px;
+  height: 20px;
+  margin-top: 30px;
+  margin-left: 758px;
   text-align: center;
-  font-family: Helvetica;
-  width: 400px;
-  height: 300px;
-  border-radius: 50px;
-  overflow: hidden;
-}
-.backdrop-pro {
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  opacity: .7;
-  top: 0;
-  right: 0;
-  position: fixed;
-}
-.rate-btn{
   font-size: large;
-  letter-spacing: 1px;
-  width: 300px;
-  font-weight: bold;
-  background-color: rgb(233, 140, 0);
-  color: #242424;
-  padding: 7px 0 7px 0;
-  border-radius: 20px;
-  margin-top: 70px;
+  border-radius: 5px;
+  padding: 1px 1px;
 }
-.rate-btn:hover{
-  background-color: rgb(152, 152, 152);
+.show-rate-number{
+  position: absolute;
+  margin-top: 55px;
+  margin-left: 785px;
+  width: 50px;
+  height: 20px;
+  background-color: #e6e6e6;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.dashboard{
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboard-list{
+  background-color: rgba(255, 242, 0, 0.653);
+  margin-top: 40px;
+  margin-left: 50px;
+  width: 400px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-family: sans-serif;
+}
+.dashboard-list-up-btn{
+  display: flex;
+  margin: 5px 0;
+}
+.dashboard-list-make-admin{
   cursor: pointer;
+}
+.dashboard-list-remove-admin{
+  cursor: pointer;
+}
+.dashboard-list-make-admin:hover{
+  color: aqua;
+}
+.dashboard-list-remove-admin:hover{
+  color: aqua;
+}
+.dashboard-inner-list{
+  background-color: #242424;
+  padding: 2px 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  color: #c1c1c1;
+  cursor: default;
+}
+.dashboard-inner-list-input{
+  border-radius: 10px;
+  border: 2px solid rgb(24, 24, 24);
+  width: 200px;
+  background-color: rgb(204, 204, 204);
+  color: #242424;
+}
+.dashboard-inner-list-text{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.dashboard-inner-list-edit-btn{
+  cursor: pointer;
+  margin-left: 260px;
+}
+.dashboard-inner-list-edit-btn:hover{
+  color: rgb(255, 0, 230);
+}
+.dashboard-inner-list-under-btn{
+  display: flex;
+}
+.dashboard-inner-list-cancle-btn{
+  cursor: pointer;
+}
+.dashboard-inner-list-cancle-btn:hover{
+ color: aqua;
+}
+.dashboard-inner-list-submit-btn{
+  cursor: pointer;
+  margin-left: 300px;
+}
+.dashboard-inner-list-submit-btn:hover{
+  color: aqua;
 }

@@ -26,8 +26,11 @@ export default function Modal({ open, onClose, open2, onClose2 }) {
           <div className="backdrop" onClick={onClose}></div>
           <div className="modal">
             {db.db.currentUser.admin === true && (
-              <div className="C-link">Dashboard</div>
+              <NavLink to={"/dashboard"} className="C-link">
+                Dashboard
+              </NavLink>
             )}
+            <br />
             <br />
             {db.db.currentUser.admin === true && (
               <NavLink to={"/setMovie"} className="C-link">
