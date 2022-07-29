@@ -11,11 +11,11 @@ export const DataProvider = ({ children }) => {
   const [commentValue, setCommentValue] = useState("");
   const [darkTheme, setDarkTheme] = useState(true);
   const [searchValue, setSearchValue] = useState("");
-  const [indexCmt, setIndexCmt] = useState();
   const [db, setDb] = useState({
     db: {
       currentUser: null,
       currentRate: null,
+      currentWatchList: null,
       movies: [
         {
           id: 1,
@@ -3454,6 +3454,7 @@ export const DataProvider = ({ children }) => {
           id: 9,
           WatchList: [],
           comments: [],
+          contact: [],
           movies: [
             {
               id: 1,
@@ -4419,8 +4420,6 @@ export const DataProvider = ({ children }) => {
         setCommentValue,
         searchValue,
         setSearchValue,
-        indexCmt,
-        setIndexCmt,
       }}
     >
       <ThemeUpdateContext.Provider value={toggleTheme}>

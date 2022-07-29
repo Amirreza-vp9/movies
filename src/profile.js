@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactStars from "react-stars";
 import Comment from "./comment";
 import { DataContext } from "./DataProvider";
@@ -10,10 +10,15 @@ import Spoil from "./spoil";
 const Profile = ({ index00, element00 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
+  const [isOpen3, setIsOpen3] = useState(false);
   const { db, setDb } = useContext(DataContext);
+  const [inputValue, setInputValue] = useState("");
   const [isOpen4, setIsOpen4] = useState(false);
+  const [isOpen5, setIsOpen5] = useState(false);
+  const [checked, setChecked] = useState(false);
   const { darkTheme, setDarkTheme } = useContext(DataContext);
   const { commentValue, setCommentValue } = useContext(DataContext);
+  const navigate = useNavigate();
   const params = useParams();
   const thatMovie = db.db.movies.find((info) => info.id == params.id);
   const UID = () =>
@@ -78,11 +83,44 @@ const Profile = ({ index00, element00 }) => {
   }
 
   function addWatchList() {
+    setIsOpen3(true);
+  }
+
+  function createWatchList() {
+    setIsOpen5(true);
+  }
+
+  function watchListCancle() {
+    setIsOpen3(false);
+    setIsOpen5(false);
+  }
+
+  function setWatchList() {
     const clone = { ...db };
-    clone.db.currentUser.WatchList.push(thatMovie);
+    clone.db.currentUser.WatchList.push({
+      name: inputValue,
+      movie: [thatMovie],
+      id: UID(),
+      public: false,
+    });
     setDb(clone);
-    console.log(db.db.currentUser.WatchList);
     alert("Succeed");
+    setInputValue("");
+    navigate("/watchList");
+  }
+
+  function setWatchListPublic() {
+    const clone = { ...db };
+    clone.db.currentUser.WatchList.push({
+      name: inputValue,
+      movie: [thatMovie],
+      id: UID() + db.db.currentUser.UserName,
+      public: true,
+    });
+    setDb(clone);
+    alert("Succeed");
+    setInputValue("");
+    navigate("/watchList");
   }
 
   const ratingChanged = (newRating) => {
@@ -142,6 +180,64 @@ const Profile = ({ index00, element00 }) => {
                     className="add-watchList"
                     onClick={addWatchList}
                   />
+                  {isOpen3 === true ? (
+                    <div className="add-watchList-modal">
+                      <button
+                        onClick={createWatchList}
+                        className="add-watchList-modal-btn"
+                      >
+                        Create new one
+                      </button>
+                      {db.db.currentUser.WatchList.map((ol) => {
+                        return (
+                          <>
+                            <button
+                              onClick={() => {
+                                ol.movie.push(thatMovie);
+                                alert("secceed");
+                                navigate("/watchList");
+                              }}
+                              className="add-watchList-modal-btn"
+                            >
+                              Add to {ol.name}
+                            </button>
+                          </>
+                        );
+                      })}
+
+                      <div
+                        style={{ cursor: "pointer" }}
+                        onClick={watchListCancle}
+                      >
+                        cancle
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {isOpen5 === true ? (
+                    <div className="add-watchList-modal2">
+                      <input
+                        placeholder="name your watchList"
+                        style={{ borderRadius: "5px", width: "143px" }}
+                        onChange={(e) => setInputValue(e.target.value)}
+                      />
+                      <button
+                        className="add-watchList-modal-btn"
+                        onClick={setWatchListPublic}
+                      >
+                        Set Public
+                      </button>
+                      <button
+                        className="add-watchList-modal-btn"
+                        onClick={setWatchList}
+                      >
+                        Set Private
+                      </button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <div className="inner-profile1">
                     <img
                       className="profile-img"

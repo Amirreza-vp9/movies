@@ -31,6 +31,7 @@ const SignUp = () => {
         Password: inputValue2,
         col: false,
         admin: false,
+        contact: [],
         comments: [],
         id: UID(),
         WatchList: [],

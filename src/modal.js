@@ -26,19 +26,23 @@ export default function Modal({ open, onClose, open2, onClose2 }) {
           <div className="backdrop" onClick={onClose}></div>
           <div className="modal">
             {db.db.currentUser.admin === true && (
-              <NavLink to={"/dashboard"} className="C-link">
-                Dashboard
-              </NavLink>
+              <>
+                <NavLink to={"/dashboard"} className="C-link">
+                  Dashboard
+                </NavLink>
+                <br />
+                <br />
+              </>
             )}
-            <br />
-            <br />
             {db.db.currentUser.admin === true && (
-              <NavLink to={"/setMovie"} className="C-link">
-                Set Movie/TV Series
-              </NavLink>
+              <>
+                <NavLink to={"/setMovie"} className="C-link">
+                  Set Movie/TV Series
+                </NavLink>
+                <br />
+                <br />
+              </>
             )}
-            <br />
-            <br />
             <div
               className="C-link"
               onClick={() => {
@@ -57,7 +61,10 @@ export default function Modal({ open, onClose, open2, onClose2 }) {
               TV Series
             </div>
             <br />
-            <div className="C-link">Contact us</div>
+            <NavLink to={"/contactUs"} className="C-link">
+              Contact us
+            </NavLink>
+            <br />
             <br />
             <div className="C-link" onClick={logOut}>
               Log out
