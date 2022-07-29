@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import { DataContext } from "./DataProvider";
 
-const ContactUs = (Item) => {
+const ContactUs = () => {
   const { db, setDb } = useContext(DataContext);
   const [contactValue, setContactValue] = useState("");
   const [contactValue2, setContactValue2] = useState("");
-  const [questionValue, setQuestionValue] = useState([]);
-  const [answerValue, setAnswerValue] = useState([]);
 
   const handleMessageChange = (event) => {
     setContactValue(event.target.value);
@@ -18,48 +16,39 @@ const ContactUs = (Item) => {
 
   const send = () => {
     if (contactValue !== "") {
-      const clone = [...questionValue];
-      clone.push({
-        text: contactValue,
-        user: db.db.currentUser.UserName,
-        email: db.db.currentUser.Email,
+      const clone = { ...db };
+      clone.db.users.filter((item) => {
+        if (item.admin === true) {
+          item.contact.push({
+            text: contactValue,
+            user: db.db.currentUser.UserName,
+            email: db.db.currentUser.Email,
+          });
+          setDb(clone);
+          setContactValue("");
+          alert("Seceed");
+        }
       });
-      setQuestionValue(clone);
-      setContactValue("");
-      alert("Seceed");
     }
   };
 
-  const send2 = (Item) => {
+  const send2 = (item, i) => {
     if (contactValue2 !== "") {
-      db.db.users.filter((el) => {
-        if (Item.user === el.UserName && Item.email === el.Email) {
-          el.contect.filter((el2) => {
-            const clone = [...answerValue];
-            clone.push(el2);
-            setAnswerValue(clone);
+      const clone = { ...db };
+      clone.db.users.filter((el) => {
+        if (item.user === el.UserName && item.email === el.Email) {
+          el.contact.push({
+            text: contactValue2,
           });
         }
+        if (el.admin === true) {
+          el.contact.splice(i, 1);
+        }
       });
+      setDb(clone);
       setContactValue2("");
       alert("Seceed");
     }
-  };
-
-  const questions = (item) => {
-    db.db.users.filter((el) => {
-      if (item.user === el.UserName && item.email === el.Email) {
-        const clone = { ...db };
-        clone.db.user.filter((el2) => {
-          if (contactValue2 !== "") {
-            el2.contact.push({
-              text: contactValue2,
-            });
-          }
-        });
-        setDb(clone);
-      }
-    });
   };
 
   return (
@@ -73,7 +62,7 @@ const ContactUs = (Item) => {
               </h2>
               <div className="contactUs-box">
                 <h5>{db.db.currentUser.UserName}</h5>
-                {answerValue.map((item) => {
+                {db.db.currentUser.contact.map((item) => {
                   return (
                     <>
                       <div className="questions">
@@ -96,27 +85,29 @@ const ContactUs = (Item) => {
             </div>
           ) : (
             <div className="contactUs-admin-box">
-              {questionValue.map((item) => {
-                Item = item;
+              {db.db.currentUser.contact.map((item, i) => {
                 return (
                   <>
-                    <div className="questions" onClick={() => questions(item)}>
-                      <h5>From : {item.user}</h5>
-                      <h5>Email : {item.email}</h5>
+                    <div className="questions">
+                      <div>From : {item.user}</div>
+                      <div>Email : {item.email}</div>
                       <div>{item.text}</div>
+                      <textarea
+                        value={contactValue2}
+                        onChange={handleMessageChange2}
+                        className="contactUs-textarea"
+                      ></textarea>
+                      <br />
+                      <button
+                        className="contactUs-btn"
+                        onClick={() => send2(item, i)}
+                      >
+                        Send
+                      </button>
                     </div>
                   </>
                 );
               })}
-              <textarea
-                value={contactValue2}
-                onChange={handleMessageChange2}
-                className="contactUs-textarea"
-              ></textarea>
-              <br />
-              <button className="contactUs-btn" onClick={send2}>
-                Send
-              </button>
             </div>
           )}
         </>
